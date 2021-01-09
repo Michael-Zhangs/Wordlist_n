@@ -1,0 +1,75 @@
+type
+comedy
+documentary
+fantasy
+horror
+romance
+fiction
+science fiction
+behind the scenes
+actually
+brief
+familiar
+factor
+dinosaur
+roar
+sheet
+envelope
+attach
+visual
+frequently
+studio
+enable
+aid
+prefer
+creative
+approach
+angle
+prop
+revise
+historian
+ensure
+Atlantic
+ocean
+not to mention
+lecture
+justice
+do justice to
+iceberg
+dragon
+award
+audience
+perform
+location
+in addition to
+martial
+martial art
+desert
+jungle
+title
+adapt
+regard
+classic
+super
+solution
+onto
+system
+cure
+eventually
+typical
+fancy
+narrow
+recommend
+personality
+despite
+major
+event
+pull up
+wave
+recollect
+recall
+angel
+dandy
+crooked
+arrow
+pea
