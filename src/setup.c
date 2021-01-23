@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <sys/types.h>
 #include <fcntl.h>
-#include <sys/stat.h>
 #include "http/http_download.h"
 #define BUF_SIZE 1024 // the version length must be smaller than buf_size
 
