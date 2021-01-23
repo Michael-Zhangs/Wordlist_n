@@ -21,10 +21,17 @@ char *WL_GetName(int index)
 		n++;
 	}
 	fn[n]='\0';
-	char* sp=(char*)malloc(n);
-	for(;n>=0;n--)
+	char ft[100]="../wordlist/";
+	int j=0;
+	while(j<=n)
 	{
-		*(sp+n)=fn[n];
+		ft[12+j]=fn[j];
+		j++;
+	}
+	char* sp=(char*)malloc(n+12);
+	for(n+=12;n>=0;n--)
+	{
+		*(sp+n)=ft[n];
 	}
 	return sp;
 }
