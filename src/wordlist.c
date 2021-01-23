@@ -2,7 +2,7 @@
 
 char *WL_GetItems()
 {
-	system("ls ../wordlist > ../tmp/Items");
+	system("ls ../wordlist | grep en > ../tmp/Items");
 	FILE *ItFP;
 	ItFP=fopen("../tmp/Items","r");
 	char ch = fgetc(ItFP);

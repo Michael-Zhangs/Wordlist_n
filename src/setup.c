@@ -26,7 +26,7 @@ int checkversion()
         onlbuf[num2]='\0';
     if(close(fd)==-1)
         printf("ERROR while closing the file\n");
-    printf("\n%s\n%s\n\n",prebuf,onlbuf);
+    //printf("\n%s\n%s\n\n",prebuf,onlbuf);
     for(int a=0;prebuf[a]!='\0'||onlbuf[a]!='\0';a++)
     {
         if(prebuf[a]!=onlbuf[a])
