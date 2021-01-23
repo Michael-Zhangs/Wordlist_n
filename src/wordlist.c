@@ -1,8 +1,60 @@
 #include "wordlist.h"
 
-char *WL_GetItems()
+char *WL_GetName(int index)
 {
-	system("ls ../wordlist | grep en > ../tmp/Items");
+	char *buf;
+	int i=0;
+	buf=WL_GetItems();
+	int t=index;
+	t--;
+	while(t>0)
+	{
+		while(*(buf+i++)!='\n');
+		t--;
+	}
+	//printf("%s",(buf+i));//For debug	
+	char fn[100];
+	int n=0;
+	while(*(buf+i+n)!='\0'&&*(buf+i+n)!='\n')
+	{
+		fn[n]=*(buf+i+n);
+		n++;
+	}
+	fn[n]='\0';
+	char* sp=(char*)malloc(n);
+	for(;n>=0;n--)
+	{
+		*(sp+n)=fn[n];
+	}
+	return sp;
+}
+
+int WL_ListItems()
+{
+	char *buf;
+	buf=WL_GetItems();
+	int i=0,j=1;
+	int ff=0;
+	while(*(buf+i)!='\0')
+	{
+		if((*(buf+i)=='\n'||ff==0)&&*(buf+i+1)!='\0')
+		{
+			if(ff==0)
+				ff=1;
+			else
+				i++;
+			printf("\n%d.",j++);
+		}
+		printf("%c",*(buf+i));
+		i++;
+	}
+	j--;
+	return j;
+}
+
+char *WL_GetItems()//remember ro free it
+{
+	system("ls ../wordlist | grep .txt > ../tmp/Items");//warining , here has been changed for debug
 	FILE *ItFP;
 	ItFP=fopen("../tmp/Items","r");
 	char ch = fgetc(ItFP);

@@ -6,5 +6,7 @@
 
 char *WL_GetItems();
 unsigned int WL_GetLen(char* filename);
+int WL_ListItems();
+char *WL_GetName(int index);
 
 #endif
