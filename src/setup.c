@@ -9,18 +9,25 @@ int checkversion()
     int openFlags;
     char prebuf[BUF_SIZE],onlbuf[BUF_SIZE];
     openFlags = O_RDONLY;
-    int fd;
+    int fd,num1,num2;
     fd=open("version",openFlags);
-    if(read(fd,prebuf,BUF_SIZE)==-1)
+    num1=read(fd,prebuf,BUF_SIZE);
+    if(num1==-1)
         printf("ERROR while reading the version\n");
     if(close(fd)==-1)
         printf("ERROR while closing the file\n");
+    else
+        prebuf[num1]='\0';
     fd=open("../tmp/version",openFlags);
-    if(read(fd,onlbuf,BUF_SIZE)==-1)
+    num2=read(fd,onlbuf,BUF_SIZE);
+    if(num2==-1)
         printf("ERROR while reading the version\n");
+    else
+        onlbuf[num2]='\0';
     if(close(fd)==-1)
         printf("ERROR while closing the file\n");
-    for(int a=0;a<BUF_SIZE;a++)
+    printf("\n%s\n%s\n\n",prebuf,onlbuf);
+    for(int a=0;prebuf[a]!='\0'||onlbuf[a]!='\0';a++)
     {
         if(prebuf[a]!=onlbuf[a])
             return 1;
