@@ -21,6 +21,7 @@ int main()
 			char *tp = WL_GetName(a);
 			//printf("%s",tp);//For debug
 			wordlen+=WL_GetLen(tp);
+			free(tp);
 		}
 		if(a>len||a<0)
 		{
@@ -32,7 +33,10 @@ int main()
 			WL_ListItems();
 		}
 	}
-	
-	printf("%d",wordlen);
+	/* Debug space*/
+	struct WL_Word test = WL_GetWordFF(10,1);
+	printf("%d,%s",wordlen,test.en);
+	WL_FreeWord(test);
+
 	return 0;
 }

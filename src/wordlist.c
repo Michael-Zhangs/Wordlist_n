@@ -1,6 +1,88 @@
 #include "wordlist.h"
 
-char *WL_GetName(int index)
+
+
+struct WL_Word WL_GetWord(int serial,struct WL_Files filetmp)
+{
+
+}
+
+void WL_FreeWord(struct WL_Word wordname)
+{
+	free(wordname.en);
+	free(wordname.zh);
+}
+
+//The serial starts from 0 not 1
+struct WL_Word WL_GetWordFF(int serial,int index)//Get word from file
+{
+	char* filename = WL_GetName(index);
+	if(WL_GetLen(filename)<serial+1)
+	{
+		printf("Out of range");
+		struct WL_Word error;
+		error.en = NULL;
+		error.zh = NULL;
+		error.correct = -1;
+		return error;
+	}
+	int openFlags = O_RDONLY;
+	int fd=open(filename,openFlags);
+	int sertmp = serial;
+	char* ftmp=(char*)malloc(sizeof(char));
+	char wordbuf[100];
+	int wordlen=0;
+	while(sertmp>0)
+	{
+		*ftmp=1;
+		while(*ftmp!='\n')
+		{
+			//printf("%c",*ftmp);//for debug
+			if(read(fd,ftmp,1)==-1)
+			{
+				printf("ERROR while reading %s",filename);
+				free(filename);
+				struct WL_Word error;
+				error.en = NULL;
+				error.zh = NULL;
+				error.correct = -1;
+				return error;
+			}
+		}
+		sertmp--;
+	}
+	*ftmp=1;
+	while(*ftmp!='\n')
+	{
+		if(read(fd,ftmp,1)==-1)
+		{
+			printf("ERROR while reading %s",filename);
+			free(filename);
+			struct WL_Word error;
+			error.en = NULL;
+			error.zh = NULL;
+			error.correct = -1;
+			return error;
+		}
+		wordbuf[wordlen]=*ftmp;
+		wordlen++;
+	}
+	struct WL_Word wtmp;
+	char* sp=(char*)malloc(wordlen);
+	for(wordlen--;wordlen>=0;wordlen--)
+	{
+		*(sp+wordlen) = wordbuf[wordlen];
+	}
+	/*Work space*/
+	wtmp.en = sp;
+	wtmp.zh = NULL;
+	free(filename);
+	free(ftmp);
+	return wtmp;
+}
+
+//starts from 1
+char *WL_GetName(int index)//Remember to free it \ Full path
 {
 	char *buf;
 	int i=0;
@@ -33,6 +115,7 @@ char *WL_GetName(int index)
 	{
 		*(sp+n)=ft[n];
 	}
+	free(buf);
 	return sp;
 }
 
@@ -56,6 +139,7 @@ int WL_ListItems()
 		i++;
 	}
 	j--;
+	free(buf);
 	return j;
 }
 
@@ -75,7 +159,7 @@ char *WL_GetItems()//remember ro free it
 	return sp;
 }
 
-unsigned int WL_GetLen(char* filename)
+unsigned int WL_GetLen(char* filename)//Full path
 {
 	FILE *LnFP;
 	LnFP=fopen(filename,"r");
@@ -92,6 +176,7 @@ unsigned int WL_GetLen(char* filename)
 			len++;
 		ch = fgetc(LnFP);
 	}
+	len++;
 	fclose(LnFP);
 	return len;
 }
